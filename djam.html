@@ -1,0 +1,49 @@
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+var json1;
+$.ajax({
+  type:"GET",
+  url:"https://app.ticketmaster.com/discovery/v2/events.json?size=10&apikey=ejK6qViMaDA24eK76S2Gsl5RGgAuWwS2&source=ticketmaster",
+  async:true,
+  dataType: "json",
+  success: function(json) {
+  				console.log("some");
+  				console.log(json._embedded);
+              //console.log(json._embedded.events[0]._embedded.venues[0].city);
+              for(var i =0; i<5;i++)
+              {
+              	var input = "http://api.openweathermap.org/data/2.5/weather?q="+ json._embedded.events[i]._embedded.venues[0].city.name +"&APPID=41093a8b3392d7e12814e026e2f1f856";
+               	$.getJSON(input,function(json){
+            	//document.write(JSON.stringify(json));
+            		document.write(json.name);
+					document.write(json.main.temp);
+     			 });
+
+               }
+           },
+  error: function(xhr, status, err) {
+              // This time, we do not end up here!
+           }
+});
+
+function disp(json)
+{
+document.write(json._embedded[0]);
+}
+
+var api_key = '41093a8b3392d7e12814e026e2f1f856';
+//results.loadhtml('http://api.openweathermap.org/data/2.5/weather?q=Montreal&mode=html&appid=' + api_key);
+
+	//document.write(json1._embedded);
+
+    function gettingJSON(){
+        //document.write("jquery loaded");
+        $.getJSON("http://api.openweathermap.org/data/2.5/weather?q=London&APPID=41093a8b3392d7e12814e026e2f1f856",function(json){
+            document.write(JSON.stringify(json));
+        });
+    }
+    //gettingJSON();
+</script>
+
+</html>
